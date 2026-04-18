@@ -1,0 +1,265 @@
+
+
+{% extends "layout.html" %}
+
+{% block title %}Student Analysis{% endblock %}
+
+{% block content %}
+
+<style>
+  body {
+    background: radial-gradient(circle at top, #0f172a, #1e293b, #0ea5e9);
+    color: #f1f5f9;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Floating particles background */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: twinkle 6s linear infinite;
+    z-index: -1;
+  }
+
+  @keyframes twinkle {
+    from { opacity: 0.3; }
+    to { opacity: 0.6; }
+  }
+
+  .page-wrapper {
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  /* HERO - Animated Gradient */
+  .top-banner {
+    background: linear-gradient(270deg, #0ea5e9, #6366f1, #8b5cf6, #ec4899, #facc15);
+    background-size: 1000% 1000%;
+    animation: gradientFlow 12s ease infinite;
+    color: white;
+    padding: 60px;
+    border-radius: 24px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+    position: relative;
+    overflow: hidden;
+  }
+
+  @keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .top-banner h1 {
+    font-size: 36px;
+    font-weight: 900;
+    position: relative;
+    z-index: 2;
+  }
+
+  .top-banner p {
+    color: #f1f5f9;
+    position: relative;
+    z-index: 2;
+    font-size: 18px;
+  }
+
+  /* CARD - Glassmorphism */
+  .card-ui {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(25px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    padding: 34px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card-ui:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 35px 80px rgba(0,0,0,0.25);
+  }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #f8fafc;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  /* LABEL */
+  label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #e2e8f0;
+  }
+
+  /* INPUTS - Premium Glow */
+  .form-control, .form-select {
+    background: linear-gradient(180deg, #ffffff, #f8fafc);
+    border: 1px solid #cbd5e1;
+    color: #0f172a;
+    border-radius: 14px;
+    padding: 12px;
+    transition: all 0.25s ease;
+  }
+
+  .form-control:focus, .form-select:focus {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 15px rgba(139,92,246,0.4);
+  }
+
+  .form-control::placeholder {
+    color: #94a3b8;
+  }
+
+  /* HINT */
+  .hint {
+    font-size: 12px;
+    color: #94a3b8;
+  }
+
+  /* BUTTON - Animated Gradient */
+  .btn-ai {
+    background: linear-gradient(135deg, #22c55e, #0ea5e9, #6366f1, #8b5cf6, #f43f5e);
+    background-size: 300% 300%;
+    animation: gradientShift 8s ease infinite;
+    border: none;
+    padding: 14px 48px;
+    border-radius: 14px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: 0.5px;
+    transition: all 0.25s ease;
+    box-shadow: 0 10px 30px rgba(99,102,241,0.35);
+  }
+
+  .btn-ai:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(99,102,241,0.45);
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  hr {
+    border-color: rgba(255,255,255,0.25);
+  }
+</style>
+
+<div class="page-wrapper py-5">
+
+  <!-- HEADER -->
+  <div class="top-banner mb-4">
+    <h1>Student Mental Health Intelligence</h1>
+    <p>Next-gen AI analytics engine for behavioral risk prediction & insights</p>
+  </div>
+
+  <!-- FORM -->
+  <form method="POST">
+
+    <div class="card-ui">
+
+      <div class="section-title">Student Profile</div>
+
+      <div class="row g-4">
+
+        <div class="col-md-6">
+          <label>Name</label>
+          <input name="name" class="form-control" placeholder="Enter full name" required>
+        </div>
+
+        <div class="col-md-6">
+          <label>Place</label>
+          <input name="place" class="form-control" placeholder="City / Region" required>
+        </div>
+
+        <div class="col-md-4">
+          <label>Age</label>
+          <input type="number" name="age" class="form-control" required>
+        </div>
+
+        <div class="col-md-4">
+          <label>Gender</label>
+          <input name="gender" class="form-control" required>
+        </div>
+
+        <div class="col-md-4">
+          <label>Education</label>
+          <input name="education" class="form-control" required>
+        </div>
+
+      </div>
+
+      <hr class="my-4">
+
+      <div class="section-title">Behavior Intelligence Metrics</div>
+
+<div class="row g-4">
+
+  <div class="col-md-4">
+    <label>Screen Time (hrs/day)</label>
+    <input type="number" step="0.1" name="screen_time" class="form-control" required>
+    <div class="hint">Digital behavior intensity</div>
+  </div>
+
+  <div class="col-md-4">
+    <label>Sleep Duration (hrs)</label>
+    <input type="number" step="0.1" name="sleep_duration" class="form-control" required>
+    <div class="hint">Recovery & brain reset metric</div>
+  </div>
+
+  <div class="col-md-4">
+    <label>Physical Activity (hrs/week)</label>
+    <input type="number" step="0.1" name="physical_activity" class="form-control" required>
+    <div class="hint">Energy & fitness index</div>
+  </div>
+
+  
+
+  <div class="col-md-6">
+    <label>Stress Level</label>
+    <select name="stress_level" class="form-select" required>
+      <option>Low</option>
+      <option>Medium</option>
+      <option>High</option>
+    </select>
+  </div>
+
+  <div class="col-md-6">
+    <label>Exam Anxiety</label>
+    <select name="anxious_exam" class="form-select" required>
+      <option>Yes</option>
+      <option>No</option>
+    </select>
+  </div>
+
+  <form method="POST">
+
+<!-- ALL YOUR FIELDS SAME -->
+
+<div class="text-center mt-4">
+  <button type="submit" class="btn btn-ai btn-lg">
+    Run AI Prediction
+  </button>
+</div>
+
+</form>
+
+
+
+
+</div>
+
+{% endblock %}

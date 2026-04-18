@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+  <!-- HEADER -->
+  <div class="text-center mb-5">
+    <h1 class="fw-bold" style="color:#0D6EFD;">MindTrack AI</h1>
+    <p class="lead text-muted">
+      AI-Powered Student Intelligence Platform for Predictive Mental Health & Academic Risk Analysis
+    </p>
+  </div>
+
+  <!-- INTRO CARD -->
+  <div class="card shadow-sm border-0 mb-5 p-4">
+    <p class="fs-5 text-dark mb-0">
+      MindTrack AI transforms behavioral and academic data into actionable insights. 
+      Using advanced machine learning models, institutions can proactively identify at-risk students 
+      and implement early interventions—shifting from reactive systems to predictive intelligence.
+    </p>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="mb-5">
+    <h3 class="fw-bold text-primary mb-4">📈 Product Evolution</h3>
+
+    <div class="d-flex flex-column gap-3">
+      <div class="card shadow-sm border-0 p-3">
+        <h6 class="fw-bold">V1.0 – ML Prototype</h6>
+        <p class="text-muted mb-0">Built core prediction models and EDA using Google Colab.</p>
+      </div>
+
+      <div class="card shadow-sm border-0 p-3">
+        <h6 class="fw-bold">V2.0 – Streamlit MVP</h6>
+        <p class="text-muted mb-0">Interactive UI for testing and validation.</p>
+      </div>
+
+      <div class="card shadow-sm border-0 p-3">
+        <h6 class="fw-bold">V3.0 – Flask Production</h6>
+        <p class="text-muted mb-0">Scalable architecture with dashboards and deployment readiness.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRID SECTION -->
+  <div class="row g-4 mb-5">
+
+    <!-- ML PIPELINE -->
+    <div class="col-md-6">
+      <div class="card shadow-sm border-0 h-100 p-4">
+        <h5 class="fw-bold text-primary">🤖 ML Pipeline</h5>
+        <ul class="mt-3 text-muted">
+          <li>Random Forest for robust predictions</li>
+          <li>Scikit-learn for ML workflows</li>
+          <li>Pandas & NumPy for data handling</li>
+          <li>Joblib for model deployment</li>
+          <li>Custom feature engineering</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- VISUALIZATION -->
+    <div class="col-md-6">
+      <div class="card shadow-sm border-0 h-100 p-4">
+        <h5 class="fw-bold text-primary">📊 Analytics</h5>
+        <p class="text-muted mt-3">
+          Built using Matplotlib & Seaborn to track behavioral patterns like stress, sleep, 
+          and screen time, enabling data-driven insights.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ARCHITECTURE -->
+  <div class="card shadow-sm border-0 mb-5 p-4">
+  <h4 class="fw-bold text-primary mb-3">🛠 System Architecture</h4>
+  <div class="row text-muted">
+    
+    <div class="col-md-4">
+      <p><strong>Frontend Layer:</strong> HTML5, CSS3, JavaScript</p>
+      <p><strong>Backend Framework:</strong> Flask (Python Web Framework)</p>
+    </div>
+    
+    <div class="col-md-4">
+      <p><strong>Templating Engine:</strong> Jinja2 (Dynamic Rendering)</p>
+      <p><strong>Machine Learning:</strong> Trained ML Models (Inference Engine)</p>
+    </div>
+    
+    <div class="col-md-4">
+      <p><strong>Dashboard:</strong> Interactive Data Visualization</p>
+      <p><strong>Design System:</strong> Responsive & User-Centric UX</p>
+    </div>
+    
+  </div>
+</div>
+  <!-- BUSINESS IMPACT -->
+  <div class="card shadow-sm border-0 mb-5 p-4">
+    <h4 class="fw-bold text-primary mb-3">🎯 Business Impact</h4>
+    <p class="text-muted fs-5">
+      Enables institutions to move from reactive support systems to proactive intervention strategies, 
+      improving student outcomes and institutional efficiency through predictive analytics.
+    </p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="text-center text-muted mt-5">
+    <p class="mb-1"><strong>Developed By:</strong> Umar(Babu)</p>
+    <p class="mb-1"><strong>Domain:</strong> Next-Gen Artificial Intelligence & Machine Learning | Predictive Analytics </p>
+    <p class="mb-1"><strong>Version:</strong> 3.5</p>
+    <small>© 2026 All Rights Reserved</small>
+  </div>
+
+</div>
+{% endblock %}

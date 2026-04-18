@@ -1,0 +1,96 @@
+
+
+
+
+{% extends "layout.html" %}
+
+{% block title %}MindTrack AI{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<header class="hero-section bg-primary text-white d-flex align-items-center">
+  <div class="container text-center">
+    <h1 class="display-1 fw-bold mb-3 gradient-text">MindTrack AI</h1>
+    <p class="lead mb-3 opacity-75">Student Mental Health Intelligence Platform</p>
+    <p class="mx-auto text-light" style="max-width:780px; font-size:1.1rem;">
+      Detect academic risk early using behavioral intelligence — stress, sleep, screen time, and activity signals
+      processed through AI models built for real-world educational systems.
+    </p>
+    <div class="mt-5 mb-5 d-flex justify-content-center gap-3 flex-wrap">
+  <a href="/index" class="btn btn-light btn-lg px-4 shadow-lg">Start Analysis</a>
+  <a href="/dashboard" class="btn btn-outline-light btn-lg px-4">View Dashboard</a>
+</div>
+
+  </div>
+</header>
+
+<!-- FEATURES -->
+<section class="container py-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold text-primary">Built for Real-Time Academic Intelligence</h2>
+    <p class="text-muted">A system designed for educators, counselors, and institutions.</p>
+  </div>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="glass-card p-4 h-100 hover-lift">
+        <div class="icon-box mb-3">🧠</div>
+        <h5 class="fw-bold text-primary">AI Risk Prediction</h5>
+        <p class="text-muted">Machine learning models evaluate student behavioral signals to detect early risk patterns.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+  <div class="glass-card p-4 h-100 hover-lift">
+    <div class="icon-box mb-3">⚡</div>
+    <h5 class="fw-bold text-electric-violet">Live Processing</h5>
+    <p class="text-muted">
+      Instant inference pipeline powered by optimized Flask backend architecture.
+    </p>
+  </div>
+    </div>
+    <div class="col-md-4">
+      <div class="glass-card p-4 h-100 hover-lift">
+        <div class="icon-box mb-3">📊</div>
+        <h5 class="fw-bold text-success">Insight Dashboard</h5>
+        <p class="text-muted">Interactive analytics to monitor risk levels, trends, and student well-being metrics.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<section class="py-5 text-center stats-strip">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <h2 class="fw-bold text-white">95%+</h2>
+        <p class="text-light">Prediction Accuracy</p>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h2 class="fw-bold text-white">&lt; 1s</h2>
+        <p class="text-light">Response Time</p>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h2 class="fw-bold text-white">24/7</h2>
+        <p class="text-light">Monitoring Ready</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section text-center py-5 bg-light">
+  <div class="container">
+    <h3 class="fw-bold text-primary mb-2">Predict Early. Act Faster.</h3>
+    <p class="text-muted mb-4">Turn behavioral data into proactive academic support systems.</p>
+    <a href="/index" class="btn btn-success btn-lg px-5 shadow-lg pulse-btn">Run Prediction</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-dark text-white text-center py-4">
+  <p class="mb-1">&copy; 2026 MindTrack AI. All Rights Reserved.</p>
+  <small>Made with ❤️ for Student Success</small>
+</footer>
+
+{% endblock %}

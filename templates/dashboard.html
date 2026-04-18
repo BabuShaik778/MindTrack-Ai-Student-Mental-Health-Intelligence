@@ -1,0 +1,294 @@
+
+{% extends "layout.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+  body { background:#F4F7FE; }
+
+  .card { border:none; }
+
+  .transition-row {
+    transition: all 0.25s ease;
+  }
+
+  .transition-row:hover {
+    transform: scale(1.01);
+    background:#f8fafc !important;
+  }
+</style>
+
+<div class="container-fluid py-4">
+
+  <!-- HEADER -->
+  <div class="mb-4">
+    <h2 class="fw-bold">📊 Student Risk Dashboard</h2>
+    <p class="text-muted">Live Analytics Engine</p>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="row g-4">
+
+    <div class="col-md-4">
+      <div class="card p-4 shadow-sm rounded-4">
+        <h6>Total Students</h6>
+        <h2 id="total">{{ total_students }}</h2>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card p-4 shadow-sm rounded-4">
+        <h6>High Risk</h6>
+        <h2 id="high" class="text-danger">{{ high_risk }}</h2>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card p-4 shadow-sm rounded-4">
+        <h6>Average Risk</h6>
+
+        <h2 id="avg"
+        class="{% if avg_risk >= 70 %}text-danger{% elif avg_risk >= 40 %}text-warning{% else %}text-success{% endif %}">
+          {{ avg_risk|round(2) }}%
+        </h2>
+
+        <div class="progress mt-3" style="height:8px;">
+          <div id="avgBar"
+          class="progress-bar {% if avg_risk >= 70 %}bg-danger{% elif avg_risk >= 40 %}bg-warning{% else %}bg-success{% endif %}"
+          style="width: {{ avg_risk|round(0) }}%;">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TOP 3 -->
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div class="card p-4 shadow-sm rounded-4">
+        <h6 class="fw-bold mb-3">🔥 Top 3 High Risk Students</h6>
+        <div id="topRisk" class="d-flex gap-3 flex-wrap"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="row mt-4 g-4">
+
+    <!-- BAR -->
+    <div class="col-md-6">
+      <div class="card p-4 shadow-sm rounded-4">
+        <h6 class="fw-bold mb-3">📊 Risk Distribution</h6>
+        <div style="height:300px;">
+          <canvas id="barChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIE (FIXED BIG + CENTER) -->
+    <div class="col-md-6">
+      <div class="card p-4 shadow-sm rounded-4">
+
+        <h6 class="fw-bold text-center mb-3">🧠 Risk Split</h6>
+
+        <div class="d-flex justify-content-center align-items-center" style="height:300px;">
+          <canvas id="pieChart"></canvas>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LINE FULL WIDTH -->
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="card p-3 shadow-sm rounded-4" style="height:500px;">
+        <h6 class="fw-bold mb-2">📈 Risk Trend</h6>
+        <canvas id="lineChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="d-flex justify-content-between mt-4 mb-2">
+    <input id="searchInput" class="form-control w-25" placeholder="Search name...">
+    <select id="filterStatus" class="form-select w-25">
+      <option value="">All</option>
+      <option value="High Risk">High</option>
+      <option value="Medium Risk">Medium</option>
+      <option value="Stable">Stable</option>
+    </select>
+  </div>
+
+  <!-- TABLE -->
+  <div class="card shadow-lg rounded-4">
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Name</th>
+            <th>Place</th>
+            <th>Age</th>
+            <th>Education</th>
+            <th>Status</th>
+            <th>Risk %</th>
+          </tr>
+        </thead>
+        <tbody id="studentTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+
+let barChart, lineChart, pieChart;
+let students = {{ students | tojson }};
+
+// TOP 3
+function updateTopRisk(data){
+  let top = [...data].sort((a,b)=>b.probability-a.probability).slice(0,3);
+  let box = document.getElementById("topRisk");
+  box.innerHTML = "";
+
+  top.forEach(s=>{
+    box.innerHTML += `
+      <div class="card p-3 shadow-sm">
+        <b>${s.name}</b>
+        <small>${s.place}</small>
+        <span class="badge bg-danger mt-2">${(s.probability*100).toFixed(1)}%</span>
+      </div>
+    `;
+  });
+}
+
+// CHARTS
+function createCharts(data){
+
+  data = data.slice(0,7);
+
+  let labels = data.map(s=>s.name);
+  let risks = data.map(s=> (s.probability*100).toFixed(1));
+
+  let high = data.filter(s=>s.status==="High Risk").length;
+  let med = data.filter(s=>s.status==="Medium Risk").length;
+  let low = data.filter(s=>s.status==="Stable").length;
+
+  if(barChart) barChart.destroy();
+  if(lineChart) lineChart.destroy();
+  if(pieChart) pieChart.destroy();
+
+  barChart = new Chart(document.getElementById("barChart"),{
+    type:"bar",
+    data:{labels,datasets:[{data:risks}]},
+    options:{responsive:true, maintainAspectRatio:false}
+  });
+
+  lineChart = new Chart(document.getElementById("lineChart"),{
+    type:"line",
+    data:{labels,datasets:[{data:risks}]},
+    options:{responsive:true, maintainAspectRatio:false}
+  });
+
+  // 🔥 FIX: BIG PIE
+  pieChart = new Chart(document.getElementById("pieChart"),{
+    type:"pie",
+    data:{
+      labels:["High","Medium","Stable"],
+      datasets:[{
+        data:[high,med,low],
+        backgroundColor:["#ef4444","#f59e0b","#22c55e"]
+      }]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false
+    }
+  });
+
+  updateTopRisk(data);
+}
+
+// TABLE
+function updateTable(data){
+
+  let search = document.getElementById("searchInput").value.toLowerCase();
+  let filter = document.getElementById("filterStatus").value;
+
+  data = data.filter(s=> s.name.toLowerCase().includes(search));
+  if(filter) data = data.filter(s=> s.status === filter);
+
+  data = data.slice(0,7);
+
+  let tbody = document.getElementById("studentTableBody");
+  tbody.innerHTML = "";
+
+  data.forEach((s,i)=>{
+
+    tbody.innerHTML += `
+      <tr class="transition-row">
+
+        <td>${s.name} ${i===0?'<span class="badge bg-primary ms-2">NEW</span>':''}</td>
+
+        <td>${s.place}</td>
+
+        <td>${s.age}</td>
+
+        <td>${s.education}</td>
+
+        <td>
+          <span class="badge 
+            ${s.status==="High Risk"?"bg-danger":
+              s.status==="Medium Risk"?"bg-warning text-dark":"bg-success"}">
+            ${s.status}
+          </span>
+        </td>
+
+        <td>
+          <div class="d-flex align-items-center gap-2">
+            <span>${(s.probability*100).toFixed(1)}%</span>
+
+            <div class="progress w-100" style="height:6px;">
+              <div class="progress-bar 
+                ${s.probability>0.7?"bg-danger":
+                  s.probability>0.4?"bg-warning":"bg-success"}"
+                style="width:${(s.probability*100)}%">
+              </div>
+            </div>
+          </div>
+        </td>
+
+      </tr>
+    `;
+  });
+}
+
+// EVENTS
+document.getElementById("searchInput").addEventListener("input",()=>updateTable(students));
+document.getElementById("filterStatus").addEventListener("change",()=>updateTable(students));
+
+// INIT
+createCharts(students);
+updateTable(students);
+
+// LIVE
+setInterval(()=>{
+  fetch("/api/students")
+  .then(r=>r.json())
+  .then(res=>{
+    students = res.data;
+    createCharts(students);
+    updateTable(students);
+  });
+},5000);
+
+</script>
+
+{% endblock %}
