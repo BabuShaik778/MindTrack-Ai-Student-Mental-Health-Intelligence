@@ -11,7 +11,14 @@ Traditional student support systems are often reactive, identifying issues only 
 
 MindTrack AI transforms student behavioral data into actionable insights through AI-driven predictive analytics, enabling institutions to move from reactive monitoring to proactive decision-making.
 
----
+
+## ⚡ Clone & Run
+
+git clone https://github.com/BabuShaik778/MindTrack-Ai-Student-Mental-Health-Intelligence.git
+cd MindTrack-Ai-Student-Mental-Health-Intelligence
+pip install -r requirements.txt
+python app.py
+
 
 ## 🎯 Key Features
 
@@ -133,7 +140,6 @@ Dashboard Visualization
 | 40% – 69%  | Medium Risk |
 | < 40%      | Stable      |
 
----
 
 ## 🏗️ System Architecture
 
@@ -173,7 +179,6 @@ Dashboard Visualization
 
 ## 📂 Project Structure
 
-```text
 MindTrack-AI/
 │
 ├── app.py
@@ -196,9 +201,9 @@ MindTrack-AI/
 │   └── images/
 │
 └── requirements.txt
-```
 
----
+
+
 
 ## 🛠️ Technology Stack
 
@@ -236,7 +241,5 @@ MindTrack-AI/
 ## 🎯 Business Impact
 
 Leverages Artificial Intelligence and Machine Learning to proactively identify at-risk students through predictive analytics, enabling early intervention, data-driven decision-making, optimized support resources, and improved student well-being, retention, and academic success.
-
----
 
 
