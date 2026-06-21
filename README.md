@@ -14,7 +14,7 @@ MindTrack AI transforms student behavioral data into actionable insights through
 
 ## ⚡ Clone & Run
 
-git clone https://github.com/BabuShaik778/MindTrack-Ai-Student-Mental-Health-Intelligence.git
+Git clone https://github.com/BabuShaik778/MindTrack-Ai-Student-Mental-Health-Intelligence.git
 cd MindTrack-Ai-Student-Mental-Health-Intelligence
 pip install -r requirements.txt
 python app.py
